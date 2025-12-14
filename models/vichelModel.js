@@ -3,23 +3,23 @@ const mongoose = require("mongoose");
 const VeichelSchema = mongoose.Schema({
   model: {
     type: String,
-    require: [true, "model of car must be add"],
+    required: [true, "model of car must be add"],
   },
   plateNumber: {
     type: String,
-    require: [true, "plateNumber of car must be add"],
+    required: [true, "plateNumber of car must be add"],
   },
   driverName: {
     type: String,
-    require: [true, "driverName of car must be add"],
+    required: [true, "driverName of car must be add"],
   },
   capacity: {
     type: Number,
-    require: [true, "capacity of car must be add"],
+    required: [true, "capacity of car must be add"],
   },
   isAirConditioned: {
     type: Boolean,
-    default: false, // علشان لو مذكرتش تبقى مش مكيفة
+    default: false,
   },
   currentStatus: {
     type: String,
@@ -34,3 +34,4 @@ const VeichelSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model("Vichels", VeichelSchema);
+//693b4c44369615fb61ed6988

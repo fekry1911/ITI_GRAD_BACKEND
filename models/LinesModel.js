@@ -2,26 +2,27 @@ const mongoose = require("mongoose");
 
 const LineSchema = new mongoose.Schema(
   {
-    station: {
+    fromStation: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Station",
-      required: true,
-    },
-    fromStation: {
-      type: String,
+      required: [true, "Origin station is required"],
     },
     toStation: {
-      type: String,
-      unique: [true, "must be unique"], // Unique index. If you specify `unique: true`
-      required: [true, "line name required"],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Station",
+      required: [true, "Destination station is required"],
     },
     price: {
       type: Number,
-      required: [true, "price required"],
+      required: [true, "Price is required"],
+      min: [0, "Price cannot be negative"],
+    },
+    distance: {
+      type: Number,
+      min: 0,
     },
   },
   { timestamps: true }
 );
-LineSchema.index({ station: 1, toStation: 1 }, { unique: true });
 
 module.exports = mongoose.model("Line", LineSchema);

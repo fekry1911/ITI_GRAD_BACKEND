@@ -2,16 +2,13 @@ const { check } = require("express-validator");
 const validatorMidlleware = require("../middlewares/validatorMiddleWare");
 
 exports.addLineToStationValidator = [
-  check("stationId").isMongoId().withMessage("This Id Can't Be Found"),
-
   check("toStation")
-    .trim()
-    .notEmpty()
-    .withMessage("Please Enter Station Name")
-    .isLength({ min: 3 })
-    .withMessage("Station Name Must Be More Than 3 Chars")
-    .isLength({ max: 30 })
-    .withMessage("Station Name Must Be Less Than 30 Chars"),
+    .isMongoId()
+    .withMessage("This Id of other station Can't Be Found"),
+
+  check("stationId")
+    .isMongoId()
+    .withMessage("This Id of current station Can't Be Found"),
 
   check("price")
     .notEmpty()
@@ -19,6 +16,11 @@ exports.addLineToStationValidator = [
     .isNumeric()
     .withMessage("Price Must Be a Number"),
 
+  check("distance")
+    .notEmpty()
+    .withMessage("Please Enter distance")
+    .isNumeric()
+    .withMessage("distance Must Be a Number"),
   validatorMidlleware,
 ];
 

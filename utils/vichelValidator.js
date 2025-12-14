@@ -23,7 +23,7 @@ exports.addVichelToLineValidator = [
   validatorMidlleware,
 ];
 
-exports.getVichelOfLine = [
+exports.getVichelOfLineValidator = [
   check("lineId").isMongoId().withMessage("This Id Can't Be Found"),
   validatorMidlleware,
 ];

@@ -4,21 +4,27 @@ const StationSchema = new mongoose.Schema(
   {
     stationName: {
       type: String,
-      required: [true, "station name required"],
+      required: [true, "Station name is required"],
+      trim: true,
+      unique: true,
     },
-
     location: {
-      lat: { type: Number, required: true },
-      lng: { type: Number, required: true },
-    },
-    lines: [
-      {
-        lineId: { type: mongoose.Schema.Types.ObjectId, ref: "Line" },
-        toStation: { type: String },
-        price: { type: Number },
+      lat: {
+        type: Number,
+        required: [true, "Latitude is required"],
+        min: -90,
+        max: 90,
       },
-    ],
+      lng: {
+        type: Number,
+        required: [true, "Longitude is required"],
+        min: -180,
+        max: 180,
+      },
+    },
   },
   { timestamps: true }
 );
+StationSchema.index({ location: "2dsphere" });
+
 module.exports = mongoose.model("Station", StationSchema);
