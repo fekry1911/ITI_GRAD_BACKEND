@@ -6,4 +6,5 @@ const globalError = (err, req, res, next) => {
     message: err.message,
   });
 };
+
 module.exports = globalError;

@@ -6,5 +6,4 @@ class ApiError extends Error {
     this.status = `${statusCode}`.startsWith(4) ? "fail" : "error";
   }
 }
-
 module.exports = ApiError;

@@ -19,22 +19,24 @@ if (process.env.NODE_ENV === "Development") {
   app.use(morgan("dev"));
   console.log(`Mode : ${process.env.NODE_ENV}`);
 }
-connectToMongo();
-
 app.use("/api/v1/station", routeStation);
-
-/*app.all("/*", (req, res, next) => {
-  next(new ApiError("Can't find this path", 404));
-});*/
-
 app.use(globalError);
 
-const server = app.listen(port, () => {
-  console.log("hello From Server", port);
+let server;
+
+connectToMongo().then(() => {
+  server = app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on port ${port}`);
+  });
 });
+
 process.on("unhandledRejection", (error) => {
   console.error("ununhandledRejection Error " + error.message);
-  server.close(() => {
+  if (server) {
+    server.close(() => {
+      process.exit(1);
+    });
+  } else {
     process.exit(1);
-  });
+  }
 });

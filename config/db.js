@@ -5,7 +5,7 @@ donenv.config("../config.env");
 const url = process.env.DB_URL;
 
 function connectToMongo() {
-  mongoose.connect(url).then((e) => {
+  return mongoose.connect(url).then((e) => {
     console.log("connect to mongo");
   });
 }

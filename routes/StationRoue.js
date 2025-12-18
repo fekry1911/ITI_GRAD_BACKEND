@@ -1,11 +1,13 @@
 const {
-  addStation,
+  //addStation,
   getAllStations,
   getOneStation,
+  addStations,
+  getNearbyStations
 } = require("../service/StationsServices");
 const express = require("express");
 const {
-  addStationValidator,
+  addStationsValidator,
   getOneStationValidator,
 } = require("../utils/stationValidator");
 const LineRoute = require("./LineRoute");
@@ -14,7 +16,8 @@ const route = express.Router();
 
 route.use("/:stationId/lines", LineRoute);
 
-route.route("/").post(addStationValidator, addStation).get(getAllStations);
+route.route("/").post(addStationsValidator, addStations).get(getAllStations);
+route.route("/near").get(getNearbyStations);
 route.route("/:stationId").get(getOneStationValidator, getOneStation);
 
 module.exports = route;
